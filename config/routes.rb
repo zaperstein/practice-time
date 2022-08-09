@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :instruments
+  resources :setlists
+  resources :practice_notes
+  resources :songs
+  resources :users
   get 'fallback/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -10,4 +15,10 @@ Rails.application.routes.draw do
   get '*path', 
     to: 'fallback#index',
     constraints: ->(req) { !req.xhr? && req.format.html? }
+
+    post "/login", to: "sessions#create"
+
+    get "/me", to: "users#show"
+
+    delete "/logout", to: "sessions#destroy"
 end
